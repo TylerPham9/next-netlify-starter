@@ -16,6 +16,7 @@ module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   staticPageGenerationTimeout: 1000,
   images: {
+    loader: 'cloudinary',
     domains: ['res.cloudinary.com'],
   },
 })
