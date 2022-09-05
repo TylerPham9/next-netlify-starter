@@ -16,7 +16,7 @@ module.exports = withBundleAnalyzer({
   staticPageGenerationTimeout: 1000,
   images: {
     loader: 'cloudinary',
-    domains: ['res.cloudinary.com'],
-    path: `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}`,
+    // domains: ['res.cloudinary.com'],
+    path: `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/`,
   },
 })
