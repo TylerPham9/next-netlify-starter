@@ -29,7 +29,7 @@ interface MasonryGridProps {
 const MasonryGrid = ({ images, onClick }: MasonryGridProps) => (
   <Masonry breakpointCols={breakpointColumnsObj} className="masonry-grid" columnClassName="masonry-grid-column">
     {images.map((image) => {
-      const editedUrl = image.image.replace('upload/', 'upload/w_600/')
+      const editedUrl: string = `/w_600/${image.url}`
 
       return (
         <ImageContainer

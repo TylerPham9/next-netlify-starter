@@ -16,8 +16,6 @@ export async function search(options: SearchOptionsProps = {}): Promise<SearchRe
     ...options,
   }
 
-  params.next_cursor = options.next_cursor
-
   const paramString: string = Object.keys(params)
     .map((key: string) => {
       const value: string = params[key as keyof typeof params]!
@@ -51,16 +49,20 @@ function randomizeArray(resources: CloudinaryResourceProps[]): CloudinaryResourc
 /* eslint-enable no-param-reassign */
 
 function mapImageResources(resources: CloudinaryResourceProps[]): ImageProps[] {
-  return resources.map((resource: CloudinaryResourceProps) => ({
-    id: resource.asset_id,
-    title: resource.public_id,
-    image: resource.secure_url,
-    width: resource.width,
-    height: resource.height,
-  }))
+  return resources.map((resource: CloudinaryResourceProps) => {
+    const splitUrl: string[] = resource.secure_url.split('upload/')
+
+    return {
+      id: resource.asset_id,
+      title: resource.public_id,
+      url: splitUrl[1]!,
+      width: resource.width,
+      height: resource.height,
+    }
+  })
 }
 
 export function prepareImageResources(resources: CloudinaryResourceProps[]): ImageProps[] {
-  const randomizedResourses = randomizeArray(resources)
-  return mapImageResources(randomizedResourses)
+  const randomizedResources = randomizeArray(resources)
+  return mapImageResources(randomizedResources)
 }

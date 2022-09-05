@@ -48,7 +48,7 @@ const Home = ({ images: defaultImages, nextCursor: defaultCursor }: HomeProps) =
 
     const results = await fetch('/api/search', {
       method: 'POST',
-      body: JSON.stringify({ nextCursor }),
+      body: JSON.stringify({ next_cursor: nextCursor }),
     }).then((response) => response.json())
     // console.log(results)
     const { resources, next_cursor: updatedNextCursor } = results
@@ -76,7 +76,7 @@ const Home = ({ images: defaultImages, nextCursor: defaultCursor }: HomeProps) =
                 }}
                 width={modalImage.width}
                 height={modalImage.height}
-                src={modalImage.image}
+                src={`/w_1000/${modalImage.url}`}
                 alt={modalImage.title}
                 loading="lazy"
               />
@@ -112,6 +112,8 @@ export async function getStaticProps() {
 
   const nextCursor: string | null = results?.next_cursor || null
   const images: ImageProps[] = prepareImageResources(resources)
+  console.log(images)
+  console.log(nextCursor)
   return {
     props: {
       images,
