@@ -103,7 +103,6 @@ const Home = ({ images: defaultImages, nextCursor: defaultCursor }: HomeProps) =
 }
 
 export default Home
-// https://github.com/colbyfayock/my-cloudinary-images/blob/main/src/pages/index.js
 
 export async function getStaticProps() {
   const results = await search()
@@ -112,8 +111,6 @@ export async function getStaticProps() {
 
   const nextCursor: string | null = results?.next_cursor || null
   const images: ImageProps[] = prepareImageResources(resources)
-  console.log(images)
-  console.log(nextCursor)
   return {
     props: {
       images,
