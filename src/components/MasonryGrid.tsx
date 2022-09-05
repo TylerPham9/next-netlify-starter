@@ -17,7 +17,7 @@ const ImageContainer = styled(Box)`
 `
 
 const breakpointColumnsObj = {
-  default: 3,
+  1024: 3,
   700: 2,
 }
 
