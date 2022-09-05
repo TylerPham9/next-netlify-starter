@@ -50,7 +50,7 @@ function randomizeArray(resources: CloudinaryResourceProps[]): CloudinaryResourc
 
 function mapImageResources(resources: CloudinaryResourceProps[]): ImageProps[] {
   return resources.map((resource: CloudinaryResourceProps) => {
-    const splitUrl: string[] = resource.secure_url.split(`${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/`)
+    const splitUrl: string[] = resource.secure_url.split(`${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`)
 
     return {
       id: resource.asset_id,
