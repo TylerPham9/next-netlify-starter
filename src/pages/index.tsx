@@ -76,7 +76,7 @@ const Home = ({ images: defaultImages, nextCursor: defaultCursor }: HomeProps) =
                 }}
                 width={modalImage.width}
                 height={modalImage.height}
-                src={`/w_1000/${modalImage.url}`}
+                src={modalImage.url}
                 alt={modalImage.title}
                 loading="lazy"
               />

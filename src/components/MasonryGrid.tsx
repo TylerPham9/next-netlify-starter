@@ -29,8 +29,6 @@ interface MasonryGridProps {
 const MasonryGrid = ({ images, onClick }: MasonryGridProps) => (
   <Masonry breakpointCols={breakpointColumnsObj} className="masonry-grid" columnClassName="masonry-grid-column">
     {images.map((image) => {
-      const editedUrl: string = `/w_600/${image.url}`
-
       return (
         <ImageContainer
           key={image.title}
@@ -48,9 +46,10 @@ const MasonryGrid = ({ images, onClick }: MasonryGridProps) => (
             }}
             width={image.width}
             height={image.height}
-            src={editedUrl}
+            src={image.url}
             key={image.title}
             alt={image.title}
+            quality="auto:best"
             loading="lazy"
           />
         </ImageContainer>
