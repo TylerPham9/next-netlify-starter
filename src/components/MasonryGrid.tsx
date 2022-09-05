@@ -17,8 +17,8 @@ const ImageContainer = styled(Box)`
 `
 
 const breakpointColumnsObj = {
-  1024: 3,
-  700: 2,
+  default: 3,
+  769: 2,
 }
 
 interface MasonryGridProps {
