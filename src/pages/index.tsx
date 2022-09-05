@@ -43,7 +43,7 @@ const Home = ({ images: defaultImages, nextCursor: defaultCursor }: HomeProps) =
     onOpen()
   }
 
-  async function handleLoadMore(event: Event) {
+  async function handleLoadMore(event: React.MouseEvent<HTMLElement>) {
     event.preventDefault()
 
     const results = await fetch('/api/search', {
