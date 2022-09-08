@@ -1,12 +1,13 @@
 import { Box } from '@chakra-ui/react'
+import type { CloudinaryImage } from '@common/types'
 import styled from '@emotion/styled'
 import Image from 'next/image'
 import Masonry from 'react-masonry-css'
 
 const ImageContainer = styled(Box)`
+  overflow: 'hidden';
   position: relative;
-  border-radius: 10px;
-  display: inline-block;
+  display: inline-flex;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
@@ -17,12 +18,13 @@ const ImageContainer = styled(Box)`
 `
 
 const breakpointColumnsObj = {
-  default: 3,
-  769: 2,
+  default: 5,
+  1024: 4,
+  769: 3,
 }
 
 interface MasonryGridProps {
-  images: any[]
+  images: CloudinaryImage[]
   onClick: Function
 }
 
@@ -32,6 +34,12 @@ const MasonryGrid = ({ images, onClick }: MasonryGridProps) => (
       return (
         <ImageContainer
           key={image.title}
+          // TODO: Change Border coloring
+          border="5px"
+          borderColor="blue"
+          borderStyle="solid"
+          borderRadius="10px"
+          marginTop="10px"
           _hover={{
             zIndex: '9',
             transform: 'scale(1.5)',
@@ -42,8 +50,9 @@ const MasonryGrid = ({ images, onClick }: MasonryGridProps) => (
               onClick(image)
             }}
             style={{
-              borderRadius: '1em',
+              borderRadius: '6px',
             }}
+            objectFit="cover"
             width={image.width}
             height={image.height}
             src={image.url}

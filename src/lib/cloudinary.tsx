@@ -1,16 +1,11 @@
-import type {
-  CloudinaryResourceProps,
-  ImageProps,
-  ResourceProps as SearchResultsProps,
-  SearchOptionsProps,
-} from '@common/types'
+import type { CloudinaryFetchResults, CloudinaryImage, CloudinaryResource, SearchOptions } from '@common/types'
 
 interface ParamsProps {
   max_results?: string
   next_cursor?: string
 }
 
-export async function search(options: SearchOptionsProps = {}): Promise<SearchResultsProps> {
+export async function search(options: SearchOptions = {}): Promise<CloudinaryFetchResults> {
   const params: ParamsProps = {
     max_results: process.env.CLOUDINARY_MAX_RESULTS,
     ...options,
@@ -37,7 +32,7 @@ export async function search(options: SearchOptionsProps = {}): Promise<SearchRe
 }
 
 /* eslint-disable no-param-reassign */
-function randomizeArray(resources: CloudinaryResourceProps[]): CloudinaryResourceProps[] {
+function randomizeArray(resources: CloudinaryResource[]): CloudinaryResource[] {
   for (let i = resources.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1))
     const temp = resources[i]
@@ -46,24 +41,36 @@ function randomizeArray(resources: CloudinaryResourceProps[]): CloudinaryResourc
   }
   return resources
 }
+
+function optimizeHeights(images: CloudinaryImage[]): CloudinaryImage[] {
+  for (let i = 1; i < 6; i += 1) {
+    let j = i
+    while (images[i - 1]?.height === images[j]?.height) {
+      j += 1
+    }
+    const temp = images[i]
+    images[i] = images[j]!
+    images[j] = temp!
+  }
+  return images
+}
 /* eslint-enable no-param-reassign */
 
-function mapImageResources(resources: CloudinaryResourceProps[]): ImageProps[] {
-  return resources.map((resource: CloudinaryResourceProps) => {
-    // const splitUrl: string[] = resource.secure_url.split(`/Cats/`)
-
+function mapImageResources(resources: CloudinaryResource[]): CloudinaryImage[] {
+  return resources.map((resource: CloudinaryResource) => {
     return {
       id: resource.asset_id,
       title: resource.public_id,
       url: resource.public_id,
-      // url: `/Cats/${splitUrl[1]!}`,
       width: resource.width,
       height: resource.height,
     }
   })
 }
 
-export function prepareImageResources(resources: CloudinaryResourceProps[]): ImageProps[] {
+export function prepareImageResources(resources: CloudinaryResource[]): CloudinaryImage[] {
   const randomizedResources = randomizeArray(resources)
-  return mapImageResources(randomizedResources)
+  const mappedImages = mapImageResources(randomizedResources)
+  const result = optimizeHeights(mappedImages)
+  return result
 }

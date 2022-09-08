@@ -1,8 +1,8 @@
-export interface SearchOptionsProps {
+export interface SearchOptions {
   next_cursor?: string
 }
 
-export interface CloudinaryResourceProps {
+export interface CloudinaryResource {
   asset_id: string
   public_id: string
   format: string
@@ -18,7 +18,7 @@ export interface CloudinaryResourceProps {
   secure_url: string
 }
 
-export interface ImageProps {
+export interface CloudinaryImage {
   id: string
   title: string
   url: string
@@ -26,7 +26,7 @@ export interface ImageProps {
   height: number
 }
 
-export interface ResourceProps {
-  resources: CloudinaryResourceProps[]
+export interface CloudinaryFetchResults {
+  resources: CloudinaryResource[]
   next_cursor?: string
 }

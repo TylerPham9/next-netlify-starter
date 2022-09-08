@@ -1,8 +1,8 @@
 // import Head from 'next/head'
 // import Header from '@components/Header'
 // import Footer from '@components/Footer'
-import { Box, Button, Container, Modal, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react'
-import type { ImageProps, ResourceProps } from '@common/types'
+import { Box, Button, Center, Container, Modal, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react'
+import type { CloudinaryFetchResults, CloudinaryImage } from '@common/types'
 import Layout from '@components/Layout'
 import MasonryGrid from '@components/MasonryGrid'
 import { prepareImageResources, search } from '@lib/cloudinary'
@@ -10,14 +10,14 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 interface HomeProps {
-  images: ImageProps[]
+  images: CloudinaryImage[]
   nextCursor: string
 }
 
 const Home = ({ images: defaultImages, nextCursor: defaultCursor }: HomeProps) => {
   const [images, setImages] = useState(defaultImages)
   const [nextCursor, setNextCursor] = useState(defaultCursor)
-  const [modalImage, setModalImage] = useState<ImageProps | undefined>(undefined)
+  const [modalImage, setModalImage] = useState<CloudinaryImage | undefined>(undefined)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   // useEffect(() => {
@@ -38,7 +38,7 @@ const Home = ({ images: defaultImages, nextCursor: defaultCursor }: HomeProps) =
   //     console.log(results)
   //   })()
   // }, [])
-  function updateModal(image: ImageProps) {
+  function updateModal(image: CloudinaryImage) {
     setModalImage(image)
     onOpen()
   }
@@ -54,7 +54,7 @@ const Home = ({ images: defaultImages, nextCursor: defaultCursor }: HomeProps) =
     const { resources, next_cursor: updatedNextCursor } = results
 
     // console.log('Updated Next Cursor:', updatedNextCursor)
-    const newImages: ImageProps[] = prepareImageResources(resources)
+    const newImages: CloudinaryImage[] = prepareImageResources(resources)
 
     setImages((prev) => [...prev, ...newImages])
     setNextCursor(updatedNextCursor)
@@ -63,9 +63,16 @@ const Home = ({ images: defaultImages, nextCursor: defaultCursor }: HomeProps) =
   return (
     <Layout>
       <>
-        <Modal blockScrollOnMount={false} closeOnOverlayClick isOpen={isOpen} onClose={onClose} isCentered size="lg">
+        <Modal blockScrollOnMount={true} closeOnOverlayClick isOpen={isOpen} onClose={onClose} isCentered size="lg">
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent
+            style={{
+              borderRadius: '22px',
+              border: '8px',
+              borderColor: 'blue',
+              borderStyle: 'solid',
+            }}
+          >
             {/* <ModalHeader>Modal Title</ModalHeader> */}
             {/* <ModalCloseButton /> */}
             {/* <ModalBody> */}
@@ -94,9 +101,11 @@ const Home = ({ images: defaultImages, nextCursor: defaultCursor }: HomeProps) =
           </ModalContent>
         </Modal>
       </>
-      <Container maxW="container.lg">
+      <Container maxW="container.lg" centerContent={true}>
         <MasonryGrid images={images} onClick={updateModal} />
-        <Button onClick={handleLoadMore}>Load More Results</Button>
+        <Center height={'100px'}>
+          <Button onClick={handleLoadMore}>Load More Results</Button>
+        </Center>
       </Container>
     </Layout>
   )
@@ -107,10 +116,10 @@ export default Home
 export async function getStaticProps() {
   const results = await search()
 
-  const { resources }: ResourceProps = results
+  const { resources }: CloudinaryFetchResults = results
 
   const nextCursor: string | null = results?.next_cursor || null
-  const images: ImageProps[] = prepareImageResources(resources)
+  const images: CloudinaryImage[] = prepareImageResources(resources)
   return {
     props: {
       images,
