@@ -53,8 +53,8 @@ const MasonryGrid = ({ images, onClick }: MasonryGridProps) => (
               borderRadius: '6px',
             }}
             objectFit="cover"
-            width={image.width}
-            height={image.height}
+            width={image.width / 2}
+            height={image.height / 2}
             src={image.url}
             key={image.title}
             alt={image.title}
