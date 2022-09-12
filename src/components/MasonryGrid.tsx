@@ -35,9 +35,9 @@ const MasonryGrid = ({ images, onClick }: MasonryGridProps) => (
         <ImageContainer
           key={image.title}
           // TODO: Change Border coloring
-          border="5px"
-          borderColor="blue"
-          borderStyle="solid"
+          // border="5px"
+          // borderColor="blue"
+          // borderStyle="solid"
           borderRadius="10px"
           marginTop="10px"
           _hover={{
