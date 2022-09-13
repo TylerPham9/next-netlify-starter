@@ -46,5 +46,12 @@
     }
   },
   "exclude": ["./out/**/*", "./node_modules/**/*", "**/*.cy.ts"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/index.tsx", "src/lib/cloudinary.jsx"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/pages/index.tsx",
+    "src/lib/cloudinary.jsx",
+    "cypress/support/e2e.jsx"
+  ]
 }
