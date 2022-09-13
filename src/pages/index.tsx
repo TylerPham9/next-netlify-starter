@@ -68,9 +68,9 @@ const Home = ({ images: defaultImages, nextCursor: defaultCursor }: HomeProps) =
           <ModalContent
             style={{
               borderRadius: '22px',
-              border: '8px',
-              borderColor: 'blue',
-              borderStyle: 'solid',
+              // border: '8px',
+              // borderColor: 'blue',
+              // borderStyle: 'solid',
             }}
           >
             {/* <ModalHeader>Modal Title</ModalHeader> */}
