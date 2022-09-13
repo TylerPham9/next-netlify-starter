@@ -13,6 +13,8 @@ export function randomizeArray<Type>(arr: Type[]): Type[] {
 }
 
 export function optimizeArrayByHeight<Type extends { height?: number }>(arr: Type[], maxLength: number): Type[] {
+  if (arr.length <= maxLength) return arr
+
   for (let i = 1; i < maxLength; i += 1) {
     let j = i
     while (arr[i - 1]?.height === arr[j]?.height) {

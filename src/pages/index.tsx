@@ -1,9 +1,10 @@
 // import Head from 'next/head'
 // import Header from '@components/Header'
 // import Footer from '@components/Footer'
-import { Box, Button, Center, Container, Modal, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react'
+import { Box, Center, Container, Modal, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react'
 import type { CloudinaryFetchResults, CloudinaryImage } from '@common/types'
 import Layout from '@components/Layout'
+import LoadMoreButton from '@components/LoadMoreButton'
 import MasonryGrid from '@components/MasonryGrid'
 import { prepareImageResources, search } from '@lib/cloudinary'
 import Image from 'next/image'
@@ -41,23 +42,6 @@ const Home = ({ images: defaultImages, nextCursor: defaultCursor }: HomeProps) =
   function updateModal(image: CloudinaryImage) {
     setModalImage(image)
     onOpen()
-  }
-
-  async function handleLoadMore(event: React.MouseEvent<HTMLElement>) {
-    event.preventDefault()
-
-    const results = await fetch('/api/search', {
-      method: 'POST',
-      body: JSON.stringify({ next_cursor: nextCursor }),
-    }).then((response) => response.json())
-    // console.log(results)
-    const { resources, next_cursor: updatedNextCursor } = results
-
-    // console.log('Updated Next Cursor:', updatedNextCursor)
-    const newImages: CloudinaryImage[] = prepareImageResources(resources)
-
-    setImages((prev) => [...prev, ...newImages])
-    setNextCursor(updatedNextCursor)
   }
 
   return (
@@ -104,7 +88,12 @@ const Home = ({ images: defaultImages, nextCursor: defaultCursor }: HomeProps) =
       <Container maxW="container.lg" centerContent={true}>
         <MasonryGrid images={images} onClick={updateModal} />
         <Center height={'100px'}>
-          <Button onClick={handleLoadMore}>Load More Results</Button>
+          <LoadMoreButton
+            setImages={setImages}
+            nextCursor={nextCursor}
+            setNextCursor={setNextCursor}
+            text="Load More Results"
+          />
         </Center>
       </Container>
     </Layout>
@@ -120,6 +109,7 @@ export async function getStaticProps() {
 
   const nextCursor: string | null = results?.next_cursor || null
   const images: CloudinaryImage[] = prepareImageResources(resources)
+
   return {
     props: {
       images,

@@ -30,3 +30,10 @@ export interface CloudinaryFetchResults {
   resources: CloudinaryResource[]
   next_cursor?: string
 }
+
+export interface LoadMoreButtonProps {
+  setImages: Function
+  nextCursor: string
+  setNextCursor: Function
+  text: string
+}
