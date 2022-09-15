@@ -44,9 +44,10 @@ function mapImageResources(resources: CloudinaryResource[]): CloudinaryImage[] {
   })
 }
 
-export function prepareImageResources(resources: CloudinaryResource[]): CloudinaryImage[] {
+export function prepareImageResources(resources: CloudinaryResource[], optimize: boolean = true): CloudinaryImage[] {
   const randomizedResources = randomizeArray(resources)
   const mappedImages = mapImageResources(randomizedResources)
-  const result = optimizeArrayByHeight(mappedImages, 6)
+
+  const result = optimize ? optimizeArrayByHeight(mappedImages, 6) : mappedImages
   return result
 }

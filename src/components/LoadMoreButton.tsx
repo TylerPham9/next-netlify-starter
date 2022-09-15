@@ -10,12 +10,9 @@ const LoadMoreButton = ({ setImages, nextCursor, setNextCursor, text }: LoadMore
       method: 'POST',
       body: JSON.stringify({ next_cursor: nextCursor }),
     }).then((response) => response.json())
-    // console.log(results)
     const { resources, next_cursor: updatedNextCursor } = results
 
-    // console.log('Updated Next Cursor:', updatedNextCursor)
-    const newImages: CloudinaryImage[] = prepareImageResources(resources)
-
+    const newImages: CloudinaryImage[] = prepareImageResources(resources, false)
     setImages((prev: CloudinaryImage[]) => [...prev, ...newImages])
     setNextCursor(updatedNextCursor)
   }
