@@ -34,6 +34,7 @@ const GridImage = ({ image, onClick }: GridImageProps) => (
       zIndex: '9',
       transform: 'scale(1.5)',
     }}
+    data-testid="grid-image"
   >
     <Image
       onClick={() => {

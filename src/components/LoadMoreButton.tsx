@@ -17,7 +17,13 @@ const LoadMoreButton = ({ setImages, nextCursor, setNextCursor, text }: LoadMore
     setNextCursor(updatedNextCursor)
   }
 
-  return nextCursor ? <Button onClick={handleLoadMore}>{text}</Button> : <></>
+  return nextCursor ? (
+    <Button data-testid="load-more-button" onClick={handleLoadMore}>
+      {text}
+    </Button>
+  ) : (
+    <></>
+  )
 }
 
 export default LoadMoreButton
