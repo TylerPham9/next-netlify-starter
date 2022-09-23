@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable */
 import { defineConfig } from 'cypress'
 
 const { lighthouse, pa11y, prepareAudit } = require('cypress-audit')
